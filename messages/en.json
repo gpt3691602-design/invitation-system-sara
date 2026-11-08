@@ -8,8 +8,125 @@
     "he": "עברית",
     "en": "English"
   },
+  "login": {
+    "title": "Staff sign in",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "signingIn": "Signing in...",
+    "errors": {
+      "invalid": "Wrong email or password",
+      "failed": "Sign in failed. Try again in a moment"
+    }
+  },
+  "noAccess": {
+    "title": "No access",
+    "body": "You are signed in, but your user is not set up as staff yet. Ask the system admin to add you.",
+    "signOut": "Sign out"
+  },
   "admin": {
-    "title": "Event management",
-    "comingSoon": "The foundation is ready. Staff login and event management arrive in stage 1."
+    "title": "Events",
+    "newEvent": "New event",
+    "loadFailed": "Could not load events. Refresh the page.",
+    "empty": "No events yet. Create the first one.",
+    "eventTypes": {
+      "private": "Private",
+      "business": "Business"
+    },
+    "inactive": "Inactive",
+    "signOut": "Sign out",
+    "backToEvents": "← All events",
+    "edit": "Edit",
+    "inactiveNotice": "This event is inactive: guests will not see the invitation page.",
+    "publicLink": "Invitation link",
+    "publicLinkHint": "Share this link with guests (WhatsApp group, message, etc.). The invitation page itself is built in stage 2.",
+    "copyLink": "Copy link",
+    "copied": "Copied ✓"
+  },
+  "templates": {
+    "legend": "Design template",
+    "classic": "Classic",
+    "minimal": "Minimal",
+    "floral": "Floral",
+    "midnight": "Modern dark",
+    "gold": "Gold",
+    "kids": "Kids",
+    "corporate": "Clean business",
+    "tech": "Tech business",
+    "festive": "Festive",
+    "romantic": "Romantic"
+  },
+  "media": {
+    "label": "Invitation image or GIF",
+    "previewAlt": "Media preview",
+    "none": "No image selected",
+    "choose": "Choose file",
+    "replace": "Replace file",
+    "uploading": "Uploading...",
+    "remove": "Remove",
+    "hint": "JPG, PNG, WebP or GIF, up to 10MB",
+    "errors": {
+      "type": "File type not supported. Use JPG, PNG, WebP or GIF.",
+      "size": "The file is larger than 10MB.",
+      "failed": "Upload failed. Try again."
+    }
+  },
+  "eventForm": {
+    "newTitle": "New event",
+    "editTitle": "Edit event",
+    "create": "Create event",
+    "save": "Save",
+    "saving": "Saving...",
+    "sections": {
+      "details": "Event details",
+      "location": "Location",
+      "design": "Design",
+      "more": "More"
+    },
+    "title": "Event name",
+    "eventType": "Event type",
+    "eventTypes": {
+      "private": "Private",
+      "business": "Business"
+    },
+    "description": "Description",
+    "dateTime": "Date and time",
+    "israelTime": "Israel time",
+    "rsvpDeadline": "RSVP deadline",
+    "optional": "Optional",
+    "maxGuests": "Maximum guests",
+    "maxGuestsHint": "Optional. Empty = no limit",
+    "venueName": "Venue name",
+    "address": "Address",
+    "lat": "Latitude",
+    "lng": "Longitude",
+    "coordsHint": "Coordinates power the Waze and Google Maps buttons. Click \"Find location\" or paste them by hand.",
+    "customColor": "Custom color (instead of the template color)",
+    "pickColor": "Pick a color",
+    "giftLink": "Gift or payment link",
+    "giftLinkHint": "External link only (Bit, PayBox, etc.). Optional",
+    "isActive": "Event is active (guests can open the invitation page)",
+    "geo": {
+      "find": "Find location",
+      "searching": "Searching...",
+      "found": "Found: {label}. Check that this is the right place.",
+      "notFound": "No location found for this address. Try writing it differently or enter coordinates by hand.",
+      "failed": "Search failed. Try again in a moment.",
+      "notAllowed": "Not allowed."
+    },
+    "errors": {
+      "required": "Required",
+      "tooLong": "Text is too long",
+      "invalidNumber": "Invalid number",
+      "invalidDate": "Invalid date",
+      "invalidUrl": "Invalid link",
+      "invalidMedia": "The media file is not valid. Upload it again.",
+      "latLngPair": "Fill in both latitude and longitude, or leave both empty",
+      "invalidColor": "Invalid color",
+      "deadlineAfterEvent": "The RSVP deadline must be before the event",
+      "invalid": "Invalid value",
+      "notAllowed": "You are not allowed to do this",
+      "saveFailed": "Saving failed. Try again."
+    }
   }
 }
