@@ -42,7 +42,8 @@
     "publicLinkHint": "זה הקישור שמפיצים למוזמנים (בקבוצת וואטסאפ, בהודעה וכו').",
     "copyLink": "העתקת קישור",
     "copied": "הועתק ✓",
-    "openInvitation": "צפייה בדף ההזמנה"
+    "openInvitation": "צפייה בדף ההזמנה",
+    "eventDetails": "פרטי האירוע"
   },
   "templates": {
     "legend": "תבנית עיצוב",
@@ -189,6 +190,98 @@
       "not_found": "האירוע לא נמצא או לא פעיל.",
       "rateLimited": "יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.",
       "failed": "השליחה נכשלה. נסו שוב."
+    }
+  },
+  "summary": {
+    "title": "סיכום",
+    "registrations": "הרשמות",
+    "totalGuests": "סה\"כ מגיעים",
+    "withEmail": "עם אימייל",
+    "cancelled": "ביטולים"
+  },
+  "registrations": {
+    "title": "נרשמים",
+    "add": "הוספת נרשם",
+    "export": "ייצוא ל-Excel",
+    "loadFailed": "טעינת הנרשמים נכשלה. רעננו את הדף.",
+    "empty": "עדיין אין נרשמים. שלחו את קישור ההזמנה או הוסיפו נרשם ידנית.",
+    "search": "חיפוש",
+    "searchPlaceholder": "חיפוש לפי שם, טלפון, אימייל או הערה",
+    "statusFilter": "סינון לפי סטטוס",
+    "filters": {
+      "all": "כל הסטטוסים",
+      "confirmed": "מגיעים",
+      "cancelled": "ביטלו"
+    },
+    "showing": "מוצגים {shown} מתוך {total}",
+    "noMatches": "אין תוצאות לחיפוש הזה.",
+    "guests": "{count, plural, one {מגיע/ה אחד/ת} other {# מגיעים}}",
+    "manual": "נוסף ידנית",
+    "actions": {
+      "whatsapp": "וואטסאפ",
+      "email": "אימייל",
+      "edit": "עריכה",
+      "delete": "מחיקה"
+    },
+    "confirmDelete": "למחוק את ההרשמה של {name}? אי אפשר לבטל את הפעולה.",
+    "deleteFailed": "המחיקה נכשלה. נסו שוב."
+  },
+  "reminder": {
+    "whatsapp": "היי {name}! תזכורת: {event} ב{date} בשעה {time}. כל הפרטים והניווט: {link}",
+    "emailSubject": "תזכורת: {event}",
+    "emailBody": "היי {name},\n\nתזכורת: {event} ב{date} בשעה {time}.\n\nכל הפרטים והניווט: {link}\n\nנתראה!"
+  },
+  "registrationForm": {
+    "newTitle": "הוספת נרשם",
+    "editTitle": "עריכת הרשמה",
+    "add": "הוספה",
+    "save": "שמירה",
+    "saving": "שומר...",
+    "cancel": "ביטול",
+    "fullName": "שם מלא",
+    "phone": "טלפון",
+    "email": "אימייל",
+    "guestCount": "מספר מגיעים",
+    "status": "סטטוס",
+    "statuses": {
+      "confirmed": "מגיע/ה",
+      "cancelled": "ביטל/ה"
+    },
+    "guestNames": "שמות המגיעים",
+    "guestNamesHint": "שם אחד בכל שורה",
+    "notes": "הערות",
+    "errors": {
+      "required": "שדה חובה",
+      "tooLong": "הטקסט ארוך מדי",
+      "phoneInvalid": "מספר הטלפון לא תקין",
+      "phoneTaken": "כבר יש הרשמה עם הטלפון הזה לאירוע",
+      "emailInvalid": "כתובת האימייל לא תקינה",
+      "countInvalid": "מספר בין 1 ל-50",
+      "tooManyNames": "יש יותר שמות ממספר המגיעים",
+      "invalid": "ערך לא תקין",
+      "notAllowed": "אין לך הרשאה לבצע פעולה זו",
+      "saveFailed": "השמירה נכשלה. נסו שוב."
+    }
+  },
+  "export": {
+    "sheet": "נרשמים",
+    "fullName": "שם מלא",
+    "phone": "טלפון",
+    "email": "אימייל",
+    "guestCount": "מגיעים",
+    "guestNames": "שמות המגיעים",
+    "notes": "הערות",
+    "status": "סטטוס",
+    "source": "מקור",
+    "createdAt": "נרשם בתאריך",
+    "total": "סה\"כ מגיעים (מאושרים)",
+    "statuses": {
+      "confirmed": "מגיע",
+      "cancelled": "ביטל"
+    },
+    "sources": {
+      "self": "הרשמה עצמית",
+      "manual": "נוסף ידנית"
     }
   }
 }

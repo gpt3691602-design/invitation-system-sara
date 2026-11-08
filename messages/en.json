@@ -42,7 +42,8 @@
     "publicLinkHint": "Share this link with guests (WhatsApp group, message, etc.).",
     "copyLink": "Copy link",
     "copied": "Copied ✓",
-    "openInvitation": "View invitation page"
+    "openInvitation": "View invitation page",
+    "eventDetails": "Event details"
   },
   "templates": {
     "legend": "Design template",
@@ -189,6 +190,98 @@
       "not_found": "The event was not found or is not active.",
       "rateLimited": "Too many attempts. Try again in a few minutes.",
       "failed": "Sending failed. Try again."
+    }
+  },
+  "summary": {
+    "title": "Summary",
+    "registrations": "Registrations",
+    "totalGuests": "Total guests",
+    "withEmail": "With email",
+    "cancelled": "Cancelled"
+  },
+  "registrations": {
+    "title": "Registrations",
+    "add": "Add registration",
+    "export": "Export to Excel",
+    "loadFailed": "Could not load registrations. Refresh the page.",
+    "empty": "No registrations yet. Share the invitation link or add one by hand.",
+    "search": "Search",
+    "searchPlaceholder": "Search by name, phone, email or note",
+    "statusFilter": "Filter by status",
+    "filters": {
+      "all": "All statuses",
+      "confirmed": "Coming",
+      "cancelled": "Cancelled"
+    },
+    "showing": "Showing {shown} of {total}",
+    "noMatches": "No results for this search.",
+    "guests": "{count, plural, one {1 guest} other {# guests}}",
+    "manual": "Added by staff",
+    "actions": {
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "confirmDelete": "Delete {name}'s registration? This cannot be undone.",
+    "deleteFailed": "Delete failed. Try again."
+  },
+  "reminder": {
+    "whatsapp": "Hi {name}! A reminder: {event} on {date} at {time}. Details and directions: {link}",
+    "emailSubject": "Reminder: {event}",
+    "emailBody": "Hi {name},\n\nA reminder: {event} on {date} at {time}.\n\nDetails and directions: {link}\n\nSee you there!"
+  },
+  "registrationForm": {
+    "newTitle": "Add registration",
+    "editTitle": "Edit registration",
+    "add": "Add",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "email": "Email",
+    "guestCount": "Number of guests",
+    "status": "Status",
+    "statuses": {
+      "confirmed": "Coming",
+      "cancelled": "Cancelled"
+    },
+    "guestNames": "Guest names",
+    "guestNamesHint": "One name per line",
+    "notes": "Notes",
+    "errors": {
+      "required": "Required",
+      "tooLong": "Text is too long",
+      "phoneInvalid": "Invalid phone number",
+      "phoneTaken": "This phone is already registered for the event",
+      "emailInvalid": "Invalid email address",
+      "countInvalid": "A number from 1 to 50",
+      "tooManyNames": "More names than guests",
+      "invalid": "Invalid value",
+      "notAllowed": "You are not allowed to do this",
+      "saveFailed": "Saving failed. Try again."
+    }
+  },
+  "export": {
+    "sheet": "Registrations",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "email": "Email",
+    "guestCount": "Guests",
+    "guestNames": "Guest names",
+    "notes": "Notes",
+    "status": "Status",
+    "source": "Source",
+    "createdAt": "Registered at",
+    "total": "Total guests (confirmed)",
+    "statuses": {
+      "confirmed": "Coming",
+      "cancelled": "Cancelled"
+    },
+    "sources": {
+      "self": "Self",
+      "manual": "Added by staff"
     }
   }
 }
