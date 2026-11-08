@@ -170,6 +170,40 @@ export type Database = {
         Args: { p_display_name?: string; p_email: string }
         Returns: string
       }
+      get_public_event: {
+        Args: { p_slug: string }
+        Returns: {
+          slug: string
+          title: string
+          event_type: Database["public"]["Enums"]["event_type"]
+          description: string | null
+          date_time: string
+          venue_name: string | null
+          address: string | null
+          lat: number | null
+          lng: number | null
+          template_id: string
+          media_url: string | null
+          primary_color: string | null
+          gift_link_url: string | null
+          rsvp_deadline: string | null
+          registration_open: boolean
+          is_full: boolean
+          updated_at: string
+        }[]
+      }
+      register_guest: {
+        Args: {
+          p_slug: string
+          p_full_name: string
+          p_phone: string
+          p_email: string | null
+          p_guest_count: number
+          p_guest_names: Json
+          p_notes: string | null
+        }
+        Returns: string
+      }
     }
     Enums: {
       event_type: "private" | "business"

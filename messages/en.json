@@ -39,9 +39,10 @@
     "edit": "Edit",
     "inactiveNotice": "This event is inactive: guests will not see the invitation page.",
     "publicLink": "Invitation link",
-    "publicLinkHint": "Share this link with guests (WhatsApp group, message, etc.). The invitation page itself is built in stage 2.",
+    "publicLinkHint": "Share this link with guests (WhatsApp group, message, etc.).",
     "copyLink": "Copy link",
-    "copied": "Copied ✓"
+    "copied": "Copied ✓",
+    "openInvitation": "View invitation page"
   },
   "templates": {
     "legend": "Design template",
@@ -127,6 +128,67 @@
       "invalid": "Invalid value",
       "notAllowed": "You are not allowed to do this",
       "saveFailed": "Saving failed. Try again."
+    }
+  },
+  "invite": {
+    "when": "When",
+    "where": "Where",
+    "atTime": "at {time}",
+    "countdown": {
+      "label": "Time left until the event",
+      "days": "days",
+      "hours": "hours",
+      "minutes": "minutes",
+      "seconds": "seconds"
+    },
+    "actions": {
+      "waze": "Navigate with Waze",
+      "googleMaps": "Google Maps",
+      "addToCalendar": "Add to calendar",
+      "googleCalendar": "Google Calendar",
+      "gift": "🎁 Gift"
+    },
+    "closedTitle": "Registration is closed",
+    "closedBody": "The registration deadline for this event has passed.",
+    "fullTitle": "This event is full",
+    "fullBody": "All places for this event have been taken.",
+    "notFoundTitle": "Invitation not found",
+    "notFoundBody": "The link may be wrong or the event is no longer active. Check the link with whoever sent it to you."
+  },
+  "registration": {
+    "title": "RSVP",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "phoneHint": "To update your RSVP later, register again with the same number",
+    "email": "Email",
+    "emailHint": "For a reminder before the event",
+    "optional": "optional",
+    "guestCount": "How many are coming (including you)?",
+    "decrease": "Fewer guests",
+    "increase": "More guests",
+    "companions": "Names of the other guests",
+    "companionN": "Guest {n}",
+    "notes": "Notes",
+    "notesPlaceholder": "Kosher, allergies, transportation...",
+    "submit": "Confirm attendance",
+    "submitting": "Sending...",
+    "thanksTitle": "Thank you, {name}!",
+    "thanksCreated": "{count, plural, one {You are registered. See you there!} other {You are registered, # guests. See you there!}}",
+    "thanksUpdated": "{count, plural, one {Your RSVP was updated. See you there!} other {Your RSVP was updated to # guests. See you there!}}",
+    "editRegistration": "Update my RSVP",
+    "errors": {
+      "nameRequired": "Please enter your full name",
+      "tooLong": "Text is too long",
+      "phoneRequired": "Please enter a phone number",
+      "phoneInvalid": "Invalid phone number",
+      "emailInvalid": "Invalid email address",
+      "countInvalid": "Invalid number of guests",
+      "countTooHigh": "Up to 20 guests per registration",
+      "closed": "Registration for this event is closed.",
+      "full": "Not enough places left for that many guests.",
+      "not_found": "The event was not found or is not active.",
+      "rateLimited": "Too many attempts. Try again in a few minutes.",
+      "failed": "Sending failed. Try again."
     }
   }
 }

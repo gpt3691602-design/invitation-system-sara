@@ -39,9 +39,10 @@
     "edit": "עריכה",
     "inactiveNotice": "האירוע לא פעיל: דף ההזמנה לא יוצג למוזמנים.",
     "publicLink": "קישור ההזמנה",
-    "publicLinkHint": "זה הקישור שמפיצים למוזמנים (בקבוצת וואטסאפ, בהודעה וכו'). דף ההזמנה עצמו ייבנה בשלב 2.",
+    "publicLinkHint": "זה הקישור שמפיצים למוזמנים (בקבוצת וואטסאפ, בהודעה וכו').",
     "copyLink": "העתקת קישור",
-    "copied": "הועתק ✓"
+    "copied": "הועתק ✓",
+    "openInvitation": "צפייה בדף ההזמנה"
   },
   "templates": {
     "legend": "תבנית עיצוב",
@@ -127,6 +128,67 @@
       "invalid": "ערך לא תקין",
       "notAllowed": "אין לך הרשאה לבצע פעולה זו",
       "saveFailed": "השמירה נכשלה. נסו שוב."
+    }
+  },
+  "invite": {
+    "when": "מתי",
+    "where": "איפה",
+    "atTime": "בשעה {time}",
+    "countdown": {
+      "label": "הזמן שנותר עד האירוע",
+      "days": "ימים",
+      "hours": "שעות",
+      "minutes": "דקות",
+      "seconds": "שניות"
+    },
+    "actions": {
+      "waze": "ניווט ב-Waze",
+      "googleMaps": "Google Maps",
+      "addToCalendar": "הוספה ליומן",
+      "googleCalendar": "Google Calendar",
+      "gift": "🎁 מתנה"
+    },
+    "closedTitle": "ההרשמה נסגרה",
+    "closedBody": "המועד האחרון להרשמה לאירוע הזה עבר.",
+    "fullTitle": "האירוע מלא",
+    "fullBody": "כל המקומות לאירוע הזה נתפסו.",
+    "notFoundTitle": "ההזמנה לא נמצאה",
+    "notFoundBody": "ייתכן שהקישור שגוי או שהאירוע כבר לא פעיל. בדקו את הקישור מול מי ששלח לכם אותו."
+  },
+  "registration": {
+    "title": "אישור הגעה",
+    "fullName": "שם מלא",
+    "phone": "טלפון",
+    "phoneHint": "לעדכון ההרשמה בהמשך, הירשמו שוב עם אותו מספר",
+    "email": "אימייל",
+    "emailHint": "לתזכורת לפני האירוע",
+    "optional": "לא חובה",
+    "guestCount": "כמה מגיעים (כולל אותך)?",
+    "decrease": "פחות מגיעים",
+    "increase": "עוד מגיעים",
+    "companions": "שמות המגיעים הנוספים",
+    "companionN": "מגיע/ה {n}",
+    "notes": "הערות",
+    "notesPlaceholder": "כשרות, אלרגיות, צורך בהסעה...",
+    "submit": "אישור הגעה",
+    "submitting": "שולח...",
+    "thanksTitle": "תודה, {name}!",
+    "thanksCreated": "{count, plural, one {נרשמת לאירוע. נתראה שם!} other {נרשמתם לאירוע, # מגיעים. נתראה שם!}}",
+    "thanksUpdated": "{count, plural, one {ההרשמה עודכנה. נתראה שם!} other {ההרשמה עודכנה ל-# מגיעים. נתראה שם!}}",
+    "editRegistration": "עדכון ההרשמה",
+    "errors": {
+      "nameRequired": "נא למלא שם מלא",
+      "tooLong": "הטקסט ארוך מדי",
+      "phoneRequired": "נא למלא מספר טלפון",
+      "phoneInvalid": "מספר הטלפון לא תקין",
+      "emailInvalid": "כתובת האימייל לא תקינה",
+      "countInvalid": "מספר מגיעים לא תקין",
+      "countTooHigh": "אפשר לרשום עד 20 מגיעים בהרשמה אחת",
+      "closed": "ההרשמה לאירוע נסגרה.",
+      "full": "אין מספיק מקומות פנויים לכמות המגיעים שבחרתם.",
+      "not_found": "האירוע לא נמצא או לא פעיל.",
+      "rateLimited": "יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.",
+      "failed": "השליחה נכשלה. נסו שוב."
     }
   }
 }

@@ -16,7 +16,7 @@ export function LocaleSwitcher() {
     <label className="flex items-center gap-2 text-sm">
       <span className="sr-only">{t("label")}</span>
       <select
-        className="rounded-md border border-gray-300 bg-white px-2 py-1"
+        className="rounded-md border border-gray-300 bg-white px-2 py-1 text-gray-900"
         value={current}
         disabled={pending}
         onChange={(e) => {
