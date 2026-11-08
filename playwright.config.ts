@@ -17,6 +17,10 @@ export default defineConfig({
     baseURL: process.env.BASE_URL ?? "http://localhost:3000",
     locale: "he-IL",
     trace: "off",
+    // Sandboxed runners (cloud sessions, some CI) reach the internet only via
+    // an HTTPS proxy. Playwright's request API ignores HTTPS_PROXY, so pass it
+    // explicitly; localhost stays direct.
+    proxy: process.env.HTTPS_PROXY ? { server: process.env.HTTPS_PROXY, bypass: "localhost,127.0.0.1" } : undefined,
   },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
