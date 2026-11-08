@@ -162,7 +162,7 @@
     "phone": "Phone",
     "phoneHint": "To update your RSVP later, register again with the same number",
     "email": "Email",
-    "emailHint": "For a reminder before the event",
+    "emailHint": "In case we need to update you about a change",
     "optional": "optional",
     "guestCount": "How many are coming (including you)?",
     "decrease": "Fewer guests",
