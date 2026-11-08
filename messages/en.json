@@ -224,7 +224,8 @@
       "delete": "Delete"
     },
     "confirmDelete": "Delete {name}'s registration? This cannot be undone.",
-    "deleteFailed": "Delete failed. Try again."
+    "deleteFailed": "Delete failed. Try again.",
+    "seating": "Table seating"
   },
   "reminder": {
     "whatsapp": "Hi {name}! A reminder: {event} on {date} at {time}. Details and directions: {link}",
@@ -282,7 +283,8 @@
     "sources": {
       "self": "Self",
       "manual": "Added by staff"
-    }
+    },
+    "table": "Table"
   },
   "preview": {
     "banner": "Preview",
@@ -290,5 +292,43 @@
     "back": "Back to event admin",
     "formTitle": "The RSVP form appears here",
     "formBody": "The form is disabled in preview so no test registrations are created."
+  },
+  "seating": {
+    "title": "Table seating",
+    "back": "← Back to event",
+    "tablePrefix": "Table",
+    "stats": {
+      "tables": "Tables",
+      "seats": "Seats",
+      "seated": "Seated",
+      "unseated": "Not seated yet"
+    },
+    "addCount": "Tables to add",
+    "capacity": "Seats per table",
+    "add": "Add tables",
+    "unseated": "Not seated",
+    "search": "Search guests",
+    "dragHint": "Drag a guest onto a table, or pick a table from the list on their card.",
+    "allSeated": "Everyone is seated 🎉",
+    "tablesLabel": "Tables",
+    "noTables": "No tables yet. Add tables above.",
+    "emptyTable": "Empty table",
+    "people": "{count}",
+    "moveTo": "Table for {name}",
+    "notSeated": "Not seated",
+    "tableName": "Table name",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "occupancy": "{used} of {capacity} seats",
+    "over": "Over capacity!",
+    "confirmDelete": "{count, plural, =0 {Delete {name}?} other {Delete {name}? # seated registrations go back to not seated.}}",
+    "errors": {
+      "notAllowed": "You are not allowed to do this.",
+      "invalid": "Invalid value.",
+      "failed": "The action failed. Try again."
+    },
+    "saving": "Saving..."
   }
 }

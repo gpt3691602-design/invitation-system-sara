@@ -143,6 +143,51 @@ export type Database = {
           },
         ]
       }
+      tables: {
+        Row: {
+          capacity: number
+          created_at: string
+          event_id: string
+          id: string
+          name: string
+          sort_order: number
+        }
+        Insert: {
+          capacity?: number
+          created_at?: string
+          event_id: string
+          id?: string
+          name: string
+          sort_order?: number
+        }
+        Update: {
+          capacity?: number
+          created_at?: string
+          event_id?: string
+          id?: string
+          name?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      registration_tables: {
+        Row: {
+          event_id: string
+          registration_id: string
+          table_id: string
+        }
+        Insert: {
+          event_id: string
+          registration_id: string
+          table_id: string
+        }
+        Update: {
+          event_id?: string
+          registration_id?: string
+          table_id?: string
+        }
+        Relationships: []
+      }
       staff: {
         Row: {
           created_at: string

@@ -14,9 +14,11 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
   const format = await getFormatter();
   const supabase = await createClient();
 
-  const [{ data: event }, { data: registrations, error: regError }] = await Promise.all([
+  const [{ data: event }, { data: registrations, error: regError }, { data: tables }, { data: seatLinks }] = await Promise.all([
     supabase.from("events").select("*").eq("id", id).maybeSingle(),
     supabase.from("registrations").select("*").eq("event_id", id).order("created_at", { ascending: false }),
+    supabase.from("tables").select("id, name").eq("event_id", id),
+    supabase.from("registration_tables").select("registration_id, table_id").eq("event_id", id),
   ]);
   if (!event) notFound();
 
@@ -35,6 +37,9 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
     link: url,
   };
 
+  const tableName = new Map((tables ?? []).map((tb) => [tb.id, tb.name]));
+  const seatOf = new Map((seatLinks ?? []).map((l) => [l.registration_id, tableName.get(l.table_id) ?? null]));
+
   const rows: PanelRow[] = regs.map((r) => {
     const msg = { ...messageParams, name: r.full_name.split(" ")[0] };
     const names = Array.isArray(r.guest_names) ? r.guest_names.filter((n): n is string => typeof n === "string") : [];
@@ -50,6 +55,7 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
       status: r.status,
       source: r.source,
       createdAt: format.dateTime(new Date(r.created_at), { dateStyle: "short", timeStyle: "short" }),
+      tableName: seatOf.get(r.id) ?? null,
       whatsappUrl: `https://wa.me/${phoneDigits(r.phone)}?text=${encodeURIComponent(t("reminder.whatsapp", msg))}`,
       mailtoUrl: r.email
         ? `mailto:${r.email}?subject=${encodeURIComponent(t("reminder.emailSubject", msg))}&body=${encodeURIComponent(t("reminder.emailBody", msg))}`
@@ -110,6 +116,9 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
           <div className="flex flex-wrap gap-2">
             <Link href={`/admin/events/${event.id}/registrations/new`} className={buttonClass("primary")}>
               {t("registrations.add")}
+            </Link>
+            <Link href={`/admin/events/${event.id}/tables`} className={buttonClass("secondary")}>
+              {t("registrations.seating")}
             </Link>
             {regs.length > 0 && (
               <a href={`/api/events/${event.id}/export`} className={buttonClass("secondary")}>

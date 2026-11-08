@@ -12,13 +12,17 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/events/[id]/exp
 
   const { id } = await ctx.params;
   const supabase = await createClient();
-  const [{ data: event }, { data: regs, error }] = await Promise.all([
+  const [{ data: event }, { data: regs, error }, { data: tables }, { data: seatLinks }] = await Promise.all([
     supabase.from("events").select("title, slug").eq("id", id).maybeSingle(),
     supabase.from("registrations").select("*").eq("event_id", id).order("created_at"),
+    supabase.from("tables").select("id, name").eq("event_id", id),
+    supabase.from("registration_tables").select("registration_id, table_id").eq("event_id", id),
   ]);
   if (!event) return new Response("Not found", { status: 404 });
   if (error) return new Response("Export failed", { status: 500 });
 
+  const tableName = new Map((tables ?? []).map((tb) => [tb.id, tb.name]));
+  const seatOf = new Map((seatLinks ?? []).map((l) => [l.registration_id, tableName.get(l.table_id) ?? ""]));
   const t = await getTranslations("export");
   const locale = await getLocale();
   const dateFmt = new Intl.DateTimeFormat(locale === "he" ? "he-IL" : "en-GB", {
@@ -38,13 +42,14 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/events/[id]/exp
     { header: t("email"), key: "email", width: 28 },
     { header: t("guestCount"), key: "guest_count", width: 10 },
     { header: t("guestNames"), key: "guest_names", width: 40 },
+    { header: t("table"), key: "table", width: 14 },
     { header: t("notes"), key: "notes", width: 36 },
     { header: t("status"), key: "status", width: 12 },
     { header: t("source"), key: "source", width: 12 },
     { header: t("createdAt"), key: "created_at", width: 18 },
   ];
   ws.getRow(1).font = { bold: true };
-  ws.autoFilter = { from: "A1", to: "I1" };
+  ws.autoFilter = { from: "A1", to: "J1" };
 
   for (const r of regs ?? []) {
     const names = Array.isArray(r.guest_names) ? r.guest_names.filter((n): n is string => typeof n === "string") : [];
@@ -56,6 +61,7 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/events/[id]/exp
       email: r.email ?? "",
       guest_count: r.guest_count,
       guest_names: names.join(", "),
+      table: seatOf.get(r.id) ?? "",
       notes: r.notes ?? "",
       status: t(`statuses.${r.status}`),
       source: t(`sources.${r.source}`),

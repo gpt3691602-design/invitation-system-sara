@@ -20,6 +20,7 @@ export type PanelRow = {
   status: "confirmed" | "cancelled";
   source: "self" | "manual";
   createdAt: string; // already formatted
+  tableName: string | null;
   whatsappUrl: string;
   mailtoUrl: string | null;
 };
@@ -46,6 +47,7 @@ export function RegistrationsPanel({ eventId, rows }: { eventId: string; rows: P
         r.guestNames.some((n) => n.toLowerCase().includes(q)) ||
         (r.email?.includes(q) ?? false) ||
         (r.notes?.toLowerCase().includes(q) ?? false) ||
+        (r.tableName?.toLowerCase().includes(q) ?? false) ||
         // "0501234567" and "501234567" both find +972501234567
         (qDigits.length >= 3 && (r.phoneSearch.includes(qDigits) || r.phoneSearch.includes(qDigits.replace(/^0/, ""))))
       );
@@ -101,6 +103,7 @@ export function RegistrationsPanel({ eventId, rows }: { eventId: string; rows: P
                 <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs">{t("guests", { count: r.guestCount })}</span>
                 {r.status === "cancelled" && <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-800">{t("filters.cancelled")}</span>}
                 {r.source === "manual" && <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-blue-800">{t("manual")}</span>}
+                {r.tableName && <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-800">{r.tableName}</span>}
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-600">
                 <span dir="ltr">{r.phone}</span>
