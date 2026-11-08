@@ -38,7 +38,7 @@ npm run dev
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase > Project Settings > API | |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase > Project Settings > API Keys | נחשף לדפדפן, מוגן ע"י RLS |
-| `SUPABASE_SECRET_KEY` | Supabase > Project Settings > API Keys | **שרת בלבד**. נדרש משלב 2 |
+| `SUPABASE_SECRET_KEY` | Supabase > Project Settings > API Keys | **שרת בלבד, אופציונלי**. מוגדר ב-Vercel כ-Sensitive. אף קוד לא משתמש בו כרגע: הצד הציבורי עובד דרך פונקציות מוגנות במסד הנתונים |
 
 ## מסד נתונים
 
