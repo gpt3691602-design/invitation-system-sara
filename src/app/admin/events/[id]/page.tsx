@@ -85,7 +85,7 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
             {url}
           </code>
           <CopyLinkButton url={url} />
-          <a href={`/e/${event.slug}`} target="_blank" rel="noopener" className={buttonClass("secondary")}>
+          <a href={`/preview/${event.id}`} target="_blank" rel="noopener" className={buttonClass("secondary")}>
             {t("admin.openInvitation")}
           </a>
         </div>

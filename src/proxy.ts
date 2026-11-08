@@ -8,5 +8,5 @@ export async function proxy(request: NextRequest) {
 export const config = {
   // Only routes that need the staff session. The public invitation pages
   // (/e/...) stay out of the proxy so they never wait on an auth call.
-  matcher: ["/admin/:path*", "/login"],
+  matcher: ["/admin/:path*", "/preview/:path*", "/login"],
 };

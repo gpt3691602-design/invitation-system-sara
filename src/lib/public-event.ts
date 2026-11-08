@@ -15,7 +15,10 @@ export const getPublicEvent = cache(async (slug: string): Promise<PublicEvent | 
     throw new Error("Could not load event");
   }
   const row = data?.[0];
-  if (!row) return null;
-  // Resolved here, at fetch time, so rendering stays free of clock reads.
-  return { ...row, upcoming: new Date(row.date_time).getTime() > Date.now() };
+  return row ? withUpcoming(row) : null;
 });
+
+// Resolved at fetch time, so rendering stays free of clock reads.
+export function withUpcoming(row: PublicEventRow): PublicEvent {
+  return { ...row, upcoming: new Date(row.date_time).getTime() > Date.now() };
+}

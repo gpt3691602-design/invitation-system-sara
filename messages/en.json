@@ -42,7 +42,7 @@
     "publicLinkHint": "Share this link with guests (WhatsApp group, message, etc.).",
     "copyLink": "Copy link",
     "copied": "Copied ✓",
-    "openInvitation": "View invitation page",
+    "openInvitation": "Preview",
     "eventDetails": "Event details"
   },
   "templates": {
@@ -283,5 +283,12 @@
       "self": "Self",
       "manual": "Added by staff"
     }
+  },
+  "preview": {
+    "banner": "Preview",
+    "inactive": "(event is inactive, guests cannot see it)",
+    "back": "Back to event admin",
+    "formTitle": "The RSVP form appears here",
+    "formBody": "The form is disabled in preview so no test registrations are created."
   }
 }

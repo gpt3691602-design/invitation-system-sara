@@ -8,7 +8,7 @@ export type LoginState = { error?: "invalid" | "failed"; email?: string };
 
 // Only same-site admin paths, so ?next= cannot bounce users to another site.
 function safeNext(value: FormDataEntryValue | null): string {
-  if (typeof value === "string" && /^\/admin(\/[\w\-/]*)?$/.test(value)) return value;
+  if (typeof value === "string" && /^\/(admin|preview)(\/[\w\-/]*)?$/.test(value)) return value;
   return "/admin";
 }
 

@@ -32,7 +32,7 @@ export async function updateSession(request: NextRequest) {
   const signedIn = Boolean(data?.claims?.sub);
 
   const { pathname } = request.nextUrl;
-  if (!signedIn && pathname.startsWith("/admin")) {
+  if (!signedIn && (pathname.startsWith("/admin") || pathname.startsWith("/preview"))) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     loginUrl.search = "";
