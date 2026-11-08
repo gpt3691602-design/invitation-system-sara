@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# מערכת הזמנות לאירועים
 
-## Getting Started
+מערכת לעסק אחד: יצירת דפי הזמנה דיגיטליים לאירועים, הפצה ידנית של קישור אחד לכל אירוע, הרשמה עצמית של המוזמנים, מעקב ותזכורות.
+האפיון ותכנית העבודה: [docs/work-plan.md](docs/work-plan.md).
 
-First, run the development server:
+## סטטוס
+
+| שלב | תיאור | מצב |
+|---|---|---|
+| 0 | תשתית: Next.js, Supabase, שתי שפות, פריסה ל-Vercel | ✅ |
+| 1 | כניסת עובדים וניהול אירועים | ⏳ |
+| 2 | דף הזמנה ציבורי והרשמה | ⏳ |
+| 3 | ניהול נרשמים | ⏳ |
+| 4 | תזכורות אוטומטיות | ⏳ |
+| 5 | השלמת תבניות ושיפורי UX | ⏳ |
+| 6 | סידור שולחנות | ⏳ |
+
+## טכנולוגיה
+
+- Next.js 16 (App Router, TypeScript), Tailwind CSS 4. התכנית כתבה Next.js 15; גרסה 16 היא הגרסה היציבה הנוכחית.
+- Supabase: Postgres, Auth, Storage. פרויקט: `kedyaookuyxvdpxzntay` (אזור eu-central-1).
+- next-intl: עברית (ברירת מחדל, RTL) ואנגלית. השפה נשמרת בעוגייה ולא בכתובת, כך שלכל אירוע יש קישור אחד.
+- Vercel לאירוח.
+
+## הרצה מקומית
 
 ```bash
+npm install
+cp .env.example .env.local   # ומלאו את הערכים
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+האתר עולה ב-http://localhost:3000. בדיקת חיבור: http://localhost:3000/api/health
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## משתני סביבה
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| משתנה | מאיפה | הערה |
+|---|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase > Project Settings > API | |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase > Project Settings > API Keys | נחשף לדפדפן, מוגן ע"י RLS |
+| `SUPABASE_SECRET_KEY` | Supabase > Project Settings > API Keys | **שרת בלבד**. נדרש משלב 2 |
 
-## Learn More
+## מסד נתונים
 
-To learn more about Next.js, take a look at the following resources:
+קבצי השינוי נמצאים ב-`supabase/migrations/` ורצים לפי הסדר.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `events`: אירועים. `registrations`: נרשמים, עם מניעת כפילות לפי `(event_id, phone)`.
+- `staff`: רשימת העובדים המורשים. **כל הטבלאות פתוחות רק למשתמש שמופיע ב-`staff`**, ולא לכל משתמש מחובר. הסיבה: ב-Supabase כל אחד יכול לפתוח חשבון כברירת מחדל, ובלי הרשימה הזו הוא היה רואה את מספרי הטלפון של כל המוזמנים.
+- למוזמנים אין גישה ישירה למסד. ההרשמה הציבורית עוברת דרך השרת (שלב 2).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### הוספת עובד
 
-## Deploy on Vercel
+1. ב-Supabase: Authentication > Users > Add user. הזינו אימייל וסיסמה וסמנו Auto Confirm.
+2. ב-SQL Editor:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sql
+select public.add_staff('person@example.com', 'שם לתצוגה');
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## פקודות
+
+```bash
+npm run dev     # פיתוח
+npm run build   # בנייה
+npm run start   # הרצת גרסת production
+npm run lint    # ESLint
+```

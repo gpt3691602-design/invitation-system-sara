@@ -1,0 +1,15 @@
+{
+  "app": {
+    "name": "Invitation System",
+    "tagline": "Digital event invitations, one link per event"
+  },
+  "locale": {
+    "label": "Language",
+    "he": "עברית",
+    "en": "English"
+  },
+  "admin": {
+    "title": "Event management",
+    "comingSoon": "The foundation is ready. Staff login and event management arrive in stage 1."
+  }
+}
