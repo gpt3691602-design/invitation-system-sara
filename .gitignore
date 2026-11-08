@@ -45,3 +45,6 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /blob-report/
+
+# launch / proposal videos and their work files (media, not code)
+/brag-output/

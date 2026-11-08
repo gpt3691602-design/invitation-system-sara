@@ -33,6 +33,7 @@ export default async function PreviewPage({ params }: PageProps<"/preview/[id]">
     lng: e.lng,
     template_id: e.template_id,
     media_url: e.media_url,
+    video_url: e.video_url,
     primary_color: e.primary_color,
     gift_link_url: e.gift_link_url,
     rsvp_deadline: e.rsvp_deadline,

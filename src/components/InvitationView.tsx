@@ -7,6 +7,7 @@ import type { PublicEvent } from "@/lib/public-event";
 import { ActionButtons, CalendarButtons } from "@/templates/blocks/ActionButtons";
 import { Countdown } from "@/templates/blocks/Countdown";
 import { EventInfo } from "@/templates/blocks/EventInfo";
+import { VideoBlock } from "@/templates/blocks/VideoBlock";
 import { templateComponents } from "@/templates/components";
 import { defaultTemplateId, isTemplateId } from "@/templates/registry";
 import { themeVars } from "@/templates/theme";
@@ -66,7 +67,12 @@ export async function InvitationView({
             <p className="text-lg leading-relaxed whitespace-pre-line text-balance">{event.description}</p>
           ) : null,
           countdown: event.upcoming ? <Countdown target={event.date_time} /> : null,
-          actions: <ActionButtons links={{ waze: nav?.waze ?? null, google: nav?.google ?? null, gift: event.gift_link_url, ...calendarLinks }} />,
+          actions: (
+            <>
+              {event.video_url && <VideoBlock url={event.video_url} />}
+              <ActionButtons links={{ waze: nav?.waze ?? null, google: nav?.google ?? null, gift: event.gift_link_url, ...calendarLinks }} />
+            </>
+          ),
           registration,
           footer: (
             <footer className="mx-auto mt-8 flex max-w-xl justify-center pb-6">

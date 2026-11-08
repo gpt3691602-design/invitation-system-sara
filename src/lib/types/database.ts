@@ -39,6 +39,7 @@ export type Database = {
           title: string
           updated_at: string
           venue_name: string | null
+          video_url: string | null
         }
         Insert: {
           address?: string | null
@@ -63,6 +64,7 @@ export type Database = {
           title: string
           updated_at?: string
           venue_name?: string | null
+          video_url?: string | null
         }
         Update: {
           address?: string | null
@@ -87,6 +89,7 @@ export type Database = {
           title?: string
           updated_at?: string
           venue_name?: string | null
+          video_url?: string | null
         }
         Relationships: []
       }
@@ -229,6 +232,7 @@ export type Database = {
           lng: number | null
           template_id: string
           media_url: string | null
+          video_url: string | null
           primary_color: string | null
           gift_link_url: string | null
           rsvp_deadline: string | null

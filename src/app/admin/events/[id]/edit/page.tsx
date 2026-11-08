@@ -30,6 +30,7 @@ export default async function EditEventPage({ params }: PageProps<"/admin/events
             lng: event.lng?.toString() ?? "",
             template_id: event.template_id,
             media_url: event.media_url,
+            video_url: event.video_url,
             primary_color: event.primary_color,
             gift_link_url: event.gift_link_url ?? "",
             rsvp_deadline: utcIsoToLocalInput(event.rsvp_deadline),

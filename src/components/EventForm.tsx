@@ -21,6 +21,7 @@ export type EventFormDefaults = {
   lng: string;
   template_id: string;
   media_url: string | null;
+  video_url: string | null;
   primary_color: string | null;
   gift_link_url: string;
   rsvp_deadline: string;
@@ -39,6 +40,7 @@ export const emptyEventDefaults: EventFormDefaults = {
   lng: "",
   template_id: defaultTemplateId,
   media_url: null,
+  video_url: null,
   primary_color: null,
   gift_link_url: "",
   rsvp_deadline: "",
@@ -186,6 +188,8 @@ export function EventForm({
         <TemplatePicker value={templateId} onChange={setTemplateId} />
         <MediaUpload initialUrl={defaults.media_url} />
         {err("media_url") && <p className="text-sm text-red-600" role="alert">{err("media_url")}</p>}
+        <MediaUpload kind="video" initialUrl={defaults.video_url} />
+        {err("video_url") && <p className="text-sm text-red-600" role="alert">{err("video_url")}</p>}
         <div className="space-y-2">
           <label className="flex min-h-11 items-center gap-2">
             <input type="checkbox" name="use_custom_color" checked={customColor} onChange={(e) => setCustomColor(e.target.checked)} className="size-4" />

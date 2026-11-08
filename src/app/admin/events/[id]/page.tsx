@@ -5,6 +5,7 @@ import { CopyLinkButton } from "@/components/CopyLinkButton";
 import { RegistrationsPanel, type PanelRow } from "@/components/RegistrationsPanel";
 import { buttonClass } from "@/components/ui/Button";
 import { formatPhone, phoneDigits } from "@/lib/phone";
+import { qrDataUri } from "@/lib/qr";
 import { invitationUrl } from "@/lib/site";
 import { createClient } from "@/lib/supabase/server";
 
@@ -23,6 +24,7 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
   if (!event) notFound();
 
   const url = await invitationUrl(event.slug);
+  const videoQr = event.video_url ? await qrDataUri(event.video_url) : null;
   const regs = registrations ?? [];
   const confirmed = regs.filter((r) => r.status === "confirmed");
   const totalGuests = confirmed.reduce((sum, r) => sum + r.guest_count, 0);
@@ -96,6 +98,20 @@ export default async function EventPage({ params }: PageProps<"/admin/events/[id
           </a>
         </div>
       </section>
+
+      {videoQr && (
+        <section className="flex flex-wrap items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 sm:p-6">
+          {/* eslint-disable-next-line @next/next/no-img-element -- inline SVG data URI */}
+          <img src={videoQr} alt={t("admin.videoQr.title")} width={120} height={120} className="rounded-lg border border-gray-200" />
+          <div className="space-y-2">
+            <h2 className="font-semibold">{t("admin.videoQr.title")}</h2>
+            <p className="text-sm text-gray-600">{t("admin.videoQr.hint")}</p>
+            <a href={videoQr} download={`${event.slug}-video-qr.svg`} className={buttonClass("secondary")}>
+              {t("admin.videoQr.download")}
+            </a>
+          </div>
+        </section>
+      )}
 
       <section aria-labelledby="summary-heading" className="space-y-3">
         <h2 id="summary-heading" className="sr-only">{t("summary.title")}</h2>

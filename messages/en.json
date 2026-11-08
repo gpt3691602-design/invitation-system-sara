@@ -43,7 +43,12 @@
     "copyLink": "Copy link",
     "copied": "Copied ✓",
     "openInvitation": "Preview",
-    "eventDetails": "Event details"
+    "eventDetails": "Event details",
+    "videoQr": {
+      "title": "Video QR code",
+      "hint": "For printed invitations or signs. Scanning opens the video.",
+      "download": "Download QR code (SVG)"
+    }
   },
   "templates": {
     "legend": "Design template",
@@ -154,7 +159,12 @@
     "fullTitle": "This event is full",
     "fullBody": "All places for this event have been taken.",
     "notFoundTitle": "Invitation not found",
-    "notFoundBody": "The link may be wrong or the event is no longer active. Check the link with whoever sent it to you."
+    "notFoundBody": "The link may be wrong or the event is no longer active. Check the link with whoever sent it to you.",
+    "video": {
+      "title": "Our video",
+      "qr": "Scan to watch the video",
+      "qrAlt": "QR code that opens the video"
+    }
   },
   "registration": {
     "title": "RSVP",
@@ -330,5 +340,20 @@
       "failed": "The action failed. Try again."
     },
     "saving": "Saving..."
+  },
+  "video": {
+    "label": "Invitation video (optional)",
+    "previewAlt": "Video preview",
+    "none": "No video selected",
+    "choose": "Choose video",
+    "replace": "Replace video",
+    "uploading": "Uploading... (videos can take a moment)",
+    "remove": "Remove",
+    "hint": "MP4, WebM or MOV, up to 50MB. The invitation shows a player and a QR code that opens the video.",
+    "errors": {
+      "type": "File type not supported. Use MP4, WebM or MOV.",
+      "size": "The file is larger than 50MB. Compress or shorten it.",
+      "failed": "Upload failed. Try again."
+    }
   }
 }
