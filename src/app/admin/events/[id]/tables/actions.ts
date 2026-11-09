@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getStaffUser } from "@/lib/auth";
+import { MAX_TABLES } from "@/lib/tables";
 import { createClient } from "@/lib/supabase/server";
 
 export type ActionResult = { ok: true } | { ok: false; error: "notAllowed" | "invalid" | "failed" };
@@ -46,6 +47,55 @@ export async function addTables(eventId: string, count: number, capacity: number
   if (error) {
     console.error("addTables failed", error);
     return { ok: false, error: "failed" };
+  }
+  refresh(eventId);
+  return { ok: true };
+}
+
+// Sets how many tables the hall has. Growing adds "<prefix> N" tables at the
+// end with the given capacity; shrinking removes the LAST tables (by order).
+// Guests seated at removed tables go back to "unseated" (cascade); the
+// screen asks for confirmation before that happens.
+export async function setTableCount(eventId: string, target: number, capacity: number, prefix: string): Promise<ActionResult> {
+  if (!(await getStaffUser())) return { ok: false, error: "notAllowed" };
+  const parsed = z
+    .object({
+      eventId: uuid,
+      target: z.number().int().min(0).max(MAX_TABLES),
+      capacity: z.number().int().min(1).max(200),
+      prefix: z.string().trim().min(1).max(40),
+    })
+    .safeParse({ eventId, target, capacity, prefix });
+  if (!parsed.success) return { ok: false, error: "invalid" };
+
+  const supabase = await createClient();
+  const { data: existing, error: readError } = await supabase
+    .from("tables")
+    .select("id, sort_order")
+    .eq("event_id", eventId)
+    .order("sort_order", { ascending: true });
+  if (readError || !existing) return { ok: false, error: "failed" };
+
+  if (target > existing.length) {
+    const start = (existing.at(-1)?.sort_order ?? 0) + 1;
+    const rows = Array.from({ length: target - existing.length }, (_, i) => ({
+      event_id: eventId,
+      name: `${parsed.data.prefix} ${start + i}`,
+      capacity,
+      sort_order: start + i,
+    }));
+    const { error } = await supabase.from("tables").insert(rows);
+    if (error) {
+      console.error("setTableCount insert failed", error);
+      return { ok: false, error: "failed" };
+    }
+  } else if (target < existing.length) {
+    const removeIds = existing.slice(target).map((tb) => tb.id);
+    const { error } = await supabase.from("tables").delete().eq("event_id", eventId).in("id", removeIds);
+    if (error) {
+      console.error("setTableCount delete failed", error);
+      return { ok: false, error: "failed" };
+    }
   }
   refresh(eventId);
   return { ok: true };

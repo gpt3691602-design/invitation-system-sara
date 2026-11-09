@@ -53,9 +53,12 @@ test("create tables and seat guests", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "סידור שולחנות" })).toBeVisible();
   await expect(page.getByText("עדיין אין שולחנות")).toBeVisible();
 
-  await page.getByLabel("כמה שולחנות להוסיף").fill("2");
-  await page.getByLabel("מקומות בשולחן").fill("3");
-  await page.getByRole("button", { name: "הוספת שולחנות" }).click();
+  // The screen asks how many tables the hall has, and recommends a number.
+  await expect(page.getByRole("heading", { name: "כמה שולחנות יש באולם?" })).toBeVisible();
+  await page.getByLabel("מספר השולחנות באולם").fill("2");
+  await page.getByLabel("מקומות בכל שולחן").fill("3");
+  await expect(page.getByText("לפי 5 מגיעים מאושרים, מומלץ לפחות 2 שולחנות של 3")).toBeVisible();
+  await page.getByRole("button", { name: "סידור האולם" }).click();
   await expect(tableCard(page, "שולחן 1")).toBeVisible();
   await expect(tableCard(page, "שולחן 2")).toBeVisible();
 
@@ -126,13 +129,40 @@ test("table shows in the registrations list and the Excel export", async ({ page
   expect(cohen?.getCell(tableCol).value).toBe("שולחן 1");
 });
 
+test("hall size: grow, then shrink with a warning about seated guests", async ({ page }) => {
+  await signIn(page);
+  await page.goto(`${eventPath}/tables`);
+  // Grow 2 → 4
+  await page.getByLabel("מספר השולחנות באולם").fill("4");
+  await page.getByRole("button", { name: "עדכון מספר השולחנות" }).click();
+  await expect(tableCard(page, "שולחן 4")).toBeVisible();
+  await expect(page.getByText("כרגע: 4 שולחנות, 12 מקומות")).toBeVisible();
+
+  // Shrink 4 → 1: tables 2–4 go; Levi (at table 2) returns to not seated.
+  await page.getByLabel("מספר השולחנות באולם").fill("1");
+  let dialogText = "";
+  page.once("dialog", (d) => { dialogText = d.message(); d.accept(); });
+  await page.getByRole("button", { name: "צמצום 3 שולחנות" }).click();
+  await expect(tableCard(page, "שולחן 2")).toHaveCount(0);
+  expect(dialogText).toContain("שולחן 2 – שולחן 4");
+  expect(dialogText).toContain("הרשמה אחת שיושבת בהם תחזור");
+  await expect(page.getByText("כרגע: שולחן אחד, 3 מקומות")).toBeVisible();
+  await expect(page.getByText("לא משובצים (1)")).toBeVisible();
+
+  // Cancelling the warning changes nothing.
+  await page.getByLabel("מספר השולחנות באולם").fill("0");
+  page.once("dialog", (d) => d.dismiss());
+  await page.getByRole("button", { name: "צמצום שולחן אחד" }).click();
+  await expect(tableCard(page, "שולחן 1")).toBeVisible();
+});
+
 test("deleting a table returns its guests to not seated", async ({ page }) => {
   await signIn(page);
   await page.goto(`${eventPath}/tables`);
   page.once("dialog", (d) => d.accept());
   await tableCard(page, "שולחן 1").getByRole("button", { name: "מחיקה" }).click();
   await expect(tableCard(page, "שולחן 1")).toHaveCount(0);
-  await expect(page.getByText("לא משובצים (1)")).toBeVisible();
+  await expect(page.getByText("לא משובצים (2)")).toBeVisible();
 
   await page.goto(`${eventPath}/edit`);
   await page.uncheck("input[name=is_active]");

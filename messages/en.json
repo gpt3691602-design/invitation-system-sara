@@ -358,7 +358,20 @@
       "failed": "The action failed. Try again."
     },
     "saving": "Saving...",
-    "guestLookupHint": "On the event day, guests can look up their own table on the invitation page using the phone number they registered with."
+    "guestLookupHint": "On the event day, guests can look up their own table on the invitation page using the phone number they registered with.",
+    "hall": {
+      "question": "How many tables does the hall have?",
+      "title": "Hall size",
+      "current": "Now: {tables, plural, one {1 table} other {# tables}}, {seats} seats",
+      "count": "Tables in the hall",
+      "capacity": "Seats per table",
+      "create": "Set up the hall",
+      "update": "Update table count",
+      "shrink": "{count, plural, one {Remove 1 table} other {Remove # tables}}",
+      "capacityNote": "Seats apply to new tables. To change an existing table, click 'Edit' on it.",
+      "recommend": "For {guests} confirmed guests, at least {tables} tables of {capacity} are recommended (10% slack to seat families together).",
+      "confirmShrink": "{parties, plural, =0 {{count} tables ({range}) will be deleted. Nobody is seated there. Continue?} one {{count} tables ({range}) will be deleted. 1 seated registration goes back to not seated. Continue?} other {{count} tables ({range}) will be deleted. # seated registrations go back to not seated. Continue?}}"
+    }
   },
   "video": {
     "label": "Invitation video (optional)",

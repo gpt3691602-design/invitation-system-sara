@@ -3,7 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useOptimistic, useState, useTransition } from "react";
-import { addTables, assignRegistration, deleteTable, updateTable, type ActionResult } from "@/app/admin/events/[id]/tables/actions";
+import { assignRegistration, deleteTable, setTableCount, updateTable, type ActionResult } from "@/app/admin/events/[id]/tables/actions";
+import { MAX_TABLES } from "@/lib/tables";
 import { Button } from "@/components/ui/Button";
 import { inputClass } from "@/components/ui/Field";
 
@@ -92,7 +93,14 @@ export function SeatingBoard({ eventId, tables, guests }: { eventId: string; tab
         <Stat label={t("stats.unseated")} value={totalGuests - seatedGuests} warn={totalGuests - seatedGuests > 0} />
       </dl>
 
-      <AddTables pending={pending} onAdd={(count, capacity) => run(() => addTables(eventId, count, capacity, t("tablePrefix")))} />
+      <HallSize
+        key={tables.length}
+        tables={tables}
+        byTable={byTable}
+        totalGuests={totalGuests}
+        pending={pending}
+        onSet={(target, capacity) => run(() => setTableCount(eventId, target, capacity, t("tablePrefix")))}
+      />
 
       <div className="grid gap-6 lg:grid-cols-[18rem_1fr]">
         {/* Unseated guests */}
@@ -286,27 +294,90 @@ function TableHeader({
   );
 }
 
-function AddTables({ pending, onAdd }: { pending: boolean; onAdd: (count: number, capacity: number) => void }) {
-  const t = useTranslations("seating");
-  const [count, setCount] = useState("1");
-  const [capacity, setCapacity] = useState("10");
+// "How many tables does the hall have?" Sets the total: more adds tables at the
+// end, fewer removes the last ones (with a warning when guests sit there).
+function HallSize({
+  tables,
+  byTable,
+  totalGuests,
+  pending,
+  onSet,
+}: {
+  tables: SeatingTable[];
+  byTable: Map<string | null, SeatingGuest[]>;
+  totalGuests: number;
+  pending: boolean;
+  onSet: (target: number, capacity: number) => void;
+}) {
+  const t = useTranslations("seating.hall");
+  const empty = tables.length === 0;
+  const [count, setCount] = useState(String(empty ? "" : tables.length));
+  const [capacity, setCapacity] = useState(String(tables.at(-1)?.capacity ?? 10));
+  const target = Number(count);
+  const cap = Number(capacity) || 10;
+  const valid = Number.isInteger(target) && target >= (empty ? 1 : 0) && target <= MAX_TABLES && count !== "";
+  const changed = valid && target !== tables.length;
+  // Families sit together, so leave ~10% of the seats as slack.
+  const recommended = totalGuests > 0 ? Math.ceil((totalGuests * 1.1) / cap) : null;
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!changed) return;
+    if (target < tables.length) {
+      const removed = tables.slice(target);
+      const parties = removed.reduce((s, tb) => s + (byTable.get(tb.id)?.length ?? 0), 0);
+      const range = removed.length === 1 ? removed[0].name : `${removed[0].name} – ${removed.at(-1)!.name}`;
+      if (!window.confirm(t("confirmShrink", { count: removed.length, range, parties }))) return;
+    }
+    onSet(target, cap);
+  }
+
   return (
     <form
-      className="flex flex-wrap items-end gap-3 rounded-xl border border-gray-200 bg-white p-4"
-      onSubmit={(e) => {
-        e.preventDefault();
-        onAdd(Number(count), Number(capacity));
-      }}
+      onSubmit={submit}
+      className={`rounded-xl border p-4 sm:p-5 ${empty ? "border-2 border-gray-900 bg-white" : "border-gray-200 bg-white"}`}
     >
-      <label className="space-y-1">
-        <span className="block text-sm font-medium">{t("addCount")}</span>
-        <input type="number" min={1} max={100} value={count} onChange={(e) => setCount(e.target.value)} required className={`${inputClass} w-24`} />
-      </label>
-      <label className="space-y-1">
-        <span className="block text-sm font-medium">{t("capacity")}</span>
-        <input type="number" min={1} max={200} value={capacity} onChange={(e) => setCapacity(e.target.value)} required className={`${inputClass} w-24`} />
-      </label>
-      <Button type="submit" disabled={pending}>{t("add")}</Button>
+      <h2 className={empty ? "text-xl font-bold" : "font-semibold"}>{empty ? t("question") : t("title")}</h2>
+      {!empty && (
+        <p className="mt-1 text-sm text-gray-600">{t("current", { tables: tables.length, seats: tables.reduce((s, tb) => s + tb.capacity, 0) })}</p>
+      )}
+      <div className="mt-4 flex flex-wrap items-end gap-3">
+        <label className="space-y-1">
+          <span className="block text-sm font-medium">{t("count")}</span>
+          <input
+            type="number"
+            inputMode="numeric"
+            min={empty ? 1 : 0}
+            max={MAX_TABLES}
+            value={count}
+            onChange={(e) => setCount(e.target.value)}
+            required
+            className={`${inputClass} w-28 text-lg`}
+          />
+        </label>
+        <label className="space-y-1">
+          <span className="block text-sm font-medium">{t("capacity")}</span>
+          <input
+            type="number"
+            inputMode="numeric"
+            min={1}
+            max={200}
+            value={capacity}
+            onChange={(e) => setCapacity(e.target.value)}
+            required
+            className={`${inputClass} w-28 text-lg`}
+          />
+        </label>
+        <Button type="submit" disabled={pending || !changed}>
+          {empty ? t("create") : target < tables.length ? t("shrink", { count: tables.length - target }) : t("update")}
+        </Button>
+      </div>
+      <p className="mt-3 text-sm text-gray-600">
+        {!empty && t("capacityNote")}
+        {recommended !== null && (
+          <span className="block font-medium text-emerald-800">{t("recommend", { guests: totalGuests, tables: recommended, capacity: cap })}</span>
+        )}
+      </p>
     </form>
   );
 }

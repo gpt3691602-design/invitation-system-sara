@@ -48,8 +48,8 @@ test("set up today's event, guests and one seated party", async ({ page, browser
   await register(guest, "אורח בלי שולחן", "050-200-3002", 0);
 
   await page.goto(`${eventPath}/tables`);
-  await page.getByLabel("כמה שולחנות להוסיף").fill("1");
-  await page.getByRole("button", { name: "הוספת שולחנות" }).click();
+  await page.getByLabel("מספר השולחנות באולם").fill("1");
+  await page.getByRole("button", { name: "סידור האולם" }).click();
   await page.getByLabel("שולחן עבור משפחת שולחן").selectOption({ label: "שולחן 1" });
   await expect(page.getByRole("status").filter({ hasText: "שומר" })).toHaveCount(0);
   await expect(page.locator("li").filter({ has: page.getByRole("heading", { name: "שולחן 1", exact: true }) })).toContainText("3 מתוך 10");
