@@ -162,7 +162,7 @@
     "notFoundBody": "The link may be wrong or the event is no longer active. Check the link with whoever sent it to you.",
     "video": {
       "title": "Our video",
-      "qr": "Scan to watch the video",
+      "qr": "Scan or tap to watch the video",
       "qrAlt": "QR code that opens the video"
     },
     "findTable": {
@@ -180,7 +180,8 @@
       "closed": "Table lookup is available on the event day only.",
       "invalid": "That phone number isn't valid. Try again, e.g. 050-123-4567.",
       "rateLimited": "Too many searches. Try again in a few minutes.",
-      "failed": "Something went wrong. Try again."
+      "failed": "Something went wrong. Try again.",
+      "opensOnDay": "On the event day you can find your table here, using the phone number you registered with."
     }
   },
   "registration": {

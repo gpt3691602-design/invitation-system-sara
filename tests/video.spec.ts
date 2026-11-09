@@ -35,8 +35,11 @@ test("event video shows on the invitation with a QR code", async ({ page, browse
 
   const guest = await (await browser.newContext({ locale: "he-IL" })).newPage();
   await guest.goto(`/e/${slug}`);
-  await expect(guest.locator("main video")).toHaveAttribute("src", videoUrl);
+  // No player on the invitation: the video is reached through the QR only,
+  // and tapping the QR opens it (for guests viewing on their phone).
+  await expect(guest.locator("main video")).toHaveCount(0);
   const qr = guest.getByRole("img", { name: "ברקוד שפותח את הסרטון" });
+  await expect(guest.locator("a").filter({ has: qr })).toHaveAttribute("href", videoUrl);
   await expect(qr).toBeVisible();
   expect(await qr.getAttribute("src")).toMatch(/^data:image\/svg\+xml/);
   // The video file is publicly reachable (what the QR opens).

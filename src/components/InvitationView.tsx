@@ -63,16 +63,7 @@ export async function InvitationView({
             // eslint-disable-next-line @next/next/no-img-element -- any aspect ratio, and GIFs must stay animated
             <img src={event.media_url} alt="" fetchPriority="high" className="block h-auto max-h-[70vh] w-full object-cover" />
           ) : null,
-          // On the event day the table lookup sits right above the details,
-          // so nobody has to scroll for it at the venue entrance.
-          info: event.seating_open ? (
-            <div className="space-y-8">
-              <FindTable slug={event.slug} />
-              <EventInfo event={event} />
-            </div>
-          ) : (
-            <EventInfo event={event} />
-          ),
+          info: <EventInfo event={event} />,
           description: event.description ? (
             <p className="text-lg leading-relaxed whitespace-pre-line text-balance">{event.description}</p>
           ) : null,
@@ -83,7 +74,16 @@ export async function InvitationView({
               <ActionButtons links={{ waze: nav?.waze ?? null, google: nav?.google ?? null, gift: event.gift_link_url, ...calendarLinks }} />
             </>
           ),
-          registration,
+          // The table lookup closes the invitation, under the RSVP. It shows
+          // whenever the event has tables and becomes usable on the event day.
+          registration: event.has_tables ? (
+            <div className="space-y-8">
+              {registration}
+              <FindTable slug={event.slug} open={event.seating_open} />
+            </div>
+          ) : (
+            registration
+          ),
           footer: (
             <footer className="mx-auto mt-8 flex max-w-xl justify-center pb-6">
               <LocaleSwitcher />

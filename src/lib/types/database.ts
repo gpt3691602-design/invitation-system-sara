@@ -239,6 +239,7 @@ export type Database = {
           registration_open: boolean
           is_full: boolean
           seating_open: boolean
+          has_tables: boolean
           updated_at: string
         }[]
       }

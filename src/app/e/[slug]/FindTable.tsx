@@ -5,7 +5,7 @@ import { startTransition, useActionState, useRef, useState } from "react";
 import { findTable, type FindTableState } from "./actions";
 
 // Event-day card: one phone field, one big button, one big answer.
-export function FindTable({ slug }: { slug: string }) {
+export function FindTable({ slug, open }: { slug: string; open: boolean }) {
   const t = useTranslations("invite.findTable");
   const [state, action, pending] = useActionState<FindTableState, FormData>(findTable.bind(null, slug), { status: "idle" });
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,7 +50,9 @@ export function FindTable({ slug }: { slug: string }) {
         )}
       </div>
 
-      {!found && (
+      {!open && <p className="mx-auto mt-4 max-w-sm text-lg text-[var(--inv-muted)]">{t("opensOnDay")}</p>}
+
+      {open && !found && (
         <form
           action={action}
           onSubmit={(e) => {

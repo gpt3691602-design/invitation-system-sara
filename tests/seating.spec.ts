@@ -82,6 +82,16 @@ test("create tables and seat guests", async ({ page }) => {
   await saved(page);
 });
 
+test("before the event day the invitation shows the table card, not yet usable", async ({ page }) => {
+  await signIn(page);
+  await page.goto(eventPath);
+  const slug = (await page.locator("code").textContent())!.trim().split("/e/")[1];
+  await page.goto(`/e/${slug}`);
+  const card = page.locator("section").filter({ has: page.getByRole("heading", { name: /מה השולחן שלי/ }) });
+  await expect(card).toContainText("ביום האירוע תוכלו למצוא כאן את השולחן שלכם");
+  await expect(card.getByLabel("מספר טלפון")).toHaveCount(0);
+});
+
 test("drag and drop seats a guest (desktop)", async ({ page, isMobile }) => {
   test.skip(isMobile, "drag and drop is a desktop gesture; the picker covers touch");
   await signIn(page);

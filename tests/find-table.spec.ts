@@ -59,6 +59,10 @@ test("a guest finds their table by phone, in any format", async ({ page }) => {
   await page.goto(`/e/${slug}`);
   const card = page.locator("section").filter({ has: page.getByRole("heading", { name: /מה השולחן שלי/ }) });
   await expect(card).toBeVisible();
+  // It sits at the bottom of the invitation, below the RSVP form.
+  const formBottom = await page.locator("form:has(#full_name)").evaluate((el) => el.getBoundingClientRect().bottom + window.scrollY);
+  const cardTop = await card.evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+  expect(cardTop).toBeGreaterThan(formBottom);
 
   const lookup = async (phone: string) => {
     await card.getByLabel("מספר טלפון").fill(phone);

@@ -40,6 +40,7 @@ export default async function PreviewPage({ params }: PageProps<"/preview/[id]">
     registration_open: true,
     is_full: false,
     seating_open: false,
+    has_tables: false,
     updated_at: e.updated_at,
   });
 
