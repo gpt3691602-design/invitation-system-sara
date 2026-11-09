@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { FindTable } from "@/app/e/[slug]/FindTable";
 import { RegistrationForm } from "@/app/e/[slug]/RegistrationForm";
 import { googleCalendarUrl, navigationUrls } from "@/lib/calendar";
 import type { PublicEvent } from "@/lib/public-event";
@@ -62,7 +63,16 @@ export async function InvitationView({
             // eslint-disable-next-line @next/next/no-img-element -- any aspect ratio, and GIFs must stay animated
             <img src={event.media_url} alt="" fetchPriority="high" className="block h-auto max-h-[70vh] w-full object-cover" />
           ) : null,
-          info: <EventInfo event={event} />,
+          // On the event day the table lookup sits right above the details,
+          // so nobody has to scroll for it at the venue entrance.
+          info: event.seating_open ? (
+            <div className="space-y-8">
+              <FindTable slug={event.slug} />
+              <EventInfo event={event} />
+            </div>
+          ) : (
+            <EventInfo event={event} />
+          ),
           description: event.description ? (
             <p className="text-lg leading-relaxed whitespace-pre-line text-balance">{event.description}</p>
           ) : null,

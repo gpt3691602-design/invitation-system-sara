@@ -39,6 +39,7 @@ export default async function PreviewPage({ params }: PageProps<"/preview/[id]">
     rsvp_deadline: e.rsvp_deadline,
     registration_open: true,
     is_full: false,
+    seating_open: false,
     updated_at: e.updated_at,
   });
 

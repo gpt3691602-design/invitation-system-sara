@@ -238,8 +238,13 @@ export type Database = {
           rsvp_deadline: string | null
           registration_open: boolean
           is_full: boolean
+          seating_open: boolean
           updated_at: string
         }[]
+      }
+      find_my_table: {
+        Args: { p_slug: string; p_phone: string }
+        Returns: { status: string; table_name: string | null; guest_count: number | null }[]
       }
       register_guest: {
         Args: {

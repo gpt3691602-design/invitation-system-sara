@@ -164,6 +164,23 @@
       "title": "Our video",
       "qr": "Scan to watch the video",
       "qrAlt": "QR code that opens the video"
+    },
+    "findTable": {
+      "title": "What's my table?",
+      "subtitle": "Enter the phone number you registered with",
+      "phone": "Phone number",
+      "submit": "Find my table",
+      "searching": "Searching...",
+      "yourTable": "Your table",
+      "seats": "{count, plural, one {1 seat is saved for you} other {# seats are saved for you}}",
+      "enjoy": "Enjoy!",
+      "again": "Search another number",
+      "not_found": "We couldn't find a registration with this number. Try the number you registered with, or ask at the reception desk.",
+      "not_seated": "We found your registration, but you haven't been seated yet. Please ask at the reception desk.",
+      "closed": "Table lookup is available on the event day only.",
+      "invalid": "That phone number isn't valid. Try again, e.g. 050-123-4567.",
+      "rateLimited": "Too many searches. Try again in a few minutes.",
+      "failed": "Something went wrong. Try again."
     }
   },
   "registration": {
@@ -339,7 +356,8 @@
       "invalid": "Invalid value.",
       "failed": "The action failed. Try again."
     },
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "guestLookupHint": "On the event day, guests can look up their own table on the invitation page using the phone number they registered with."
   },
   "video": {
     "label": "Invitation video (optional)",

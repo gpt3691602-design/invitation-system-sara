@@ -34,6 +34,7 @@ export default async function TablesPage({ params }: PageProps<"/admin/events/[i
         </Link>
         <h1 className="mt-1 text-2xl font-bold">{t("title")}</h1>
         <p className="text-gray-600">{event.title}</p>
+        <p className="mt-2 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900">{t("guestLookupHint")}</p>
       </div>
       <SeatingBoard eventId={event.id} tables={tables ?? []} guests={guests} />
     </div>

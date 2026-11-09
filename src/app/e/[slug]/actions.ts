@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { normalizePhone } from "@/lib/phone";
 import { rateLimit } from "@/lib/rate-limit";
 import { registrationSchema } from "@/lib/registration/schema";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -76,4 +77,29 @@ export async function registerGuest(
     default:
       return { status: "error", formError: "failed" };
   }
+}
+
+export type FindTableState =
+  | { status: "idle" }
+  | { status: "found"; tableName: string; guestCount: number }
+  | { status: "not_seated" | "not_found" | "closed" | "invalid" | "rateLimited" | "failed" };
+
+// "What's my table?" on the event day. Rate limited because it answers
+// questions about phone numbers; the database returns no names.
+export async function findTable(slug: string, _prev: FindTableState, formData: FormData): Promise<FindTableState> {
+  const phone = normalizePhone(String(formData.get("phone") ?? ""));
+  if (!phone) return { status: "invalid" };
+  if (!rateLimit(`table:${await clientIp()}`, 20, 10 * 60 * 1000)) return { status: "rateLimited" };
+
+  const { data, error } = await createPublicClient().rpc("find_my_table", { p_slug: slug, p_phone: phone });
+  const row = data?.[0];
+  if (error || !row) {
+    console.error("find_my_table failed", error);
+    return { status: "failed" };
+  }
+  if (row.status === "found" && row.table_name) {
+    return { status: "found", tableName: row.table_name, guestCount: row.guest_count ?? 1 };
+  }
+  if (row.status === "not_seated" || row.status === "not_found" || row.status === "closed") return { status: row.status };
+  return { status: "failed" };
 }
